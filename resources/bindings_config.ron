@@ -1,0 +1,12 @@
+(
+  axes: {
+    "left_player_vertical": Emulated(pos: Key(W), neg: Key(S)),
+    "left_player_horizontal": Emulated(pos: Key(D), neg: Key(A)),
+    "right_player_vertical": Emulated(pos: Key(Up), neg: Key(Down)),
+    "right_player_horizontal": Emulated(pos: Key(Right), neg: Key(Left)),
+  },
+  actions: {
+    "left_player_bomb": [[Key(Q)], [Key(E)]],
+    "right_player_bomb": [[Key(Space)], [Key(M)]],
+  },
+)
