@@ -1,11 +1,11 @@
 use crate::core::{Orientation, Orientation::*, PlayerNumber};
 use amethyst::ecs::prelude::{Component, DenseVecStorage};
 
-pub const PLAYER_HEIGHT: f32 = 6.0;
-pub const PLAYER_WIDTH: f32 = 6.0;
+pub const PLAYER_HEIGHT: f32 = 64.0;
+pub const PLAYER_WIDTH: f32 = 64.0;
 
-pub const PLAYER_X_MOVEMENT: f32 = 1.2;
-pub const PLAYER_Y_MOVEMENT: f32 = 0.675;
+pub const PLAYER_X_MOVEMENT: f32 = 240.0;
+pub const PLAYER_Y_MOVEMENT: f32 = 135.0;
 
 pub fn map_to_sprite(orient: Orientation) -> Option<i8> {
     match orient {
