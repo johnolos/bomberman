@@ -6,7 +6,7 @@ pub const BOMB_WIDTH: f32 = 6.0;
 pub const BOMB_X_MOVEMENT: f32 = 1.2;
 pub const BOMB_Y_MOVEMENT: f32 = 0.675;
 
-pub const INITIAL_BOMB_TIME: f32 = 5.0;
+pub const INITIAL_BOMB_TIME: f32 = 3.0;
 pub const INITIAL_BLAST_RADIUS: i8 = 1;
 
 use crate::core::PlayerNumber;

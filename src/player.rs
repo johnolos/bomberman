@@ -4,8 +4,8 @@ use amethyst::ecs::prelude::{Component, DenseVecStorage};
 pub const PLAYER_HEIGHT: f32 = 64.0;
 pub const PLAYER_WIDTH: f32 = 64.0;
 
-pub const PLAYER_X_MOVEMENT: f32 = 240.0;
-pub const PLAYER_Y_MOVEMENT: f32 = 135.0;
+pub const PLAYER_X_MOVEMENT: f32 = 960.0;
+pub const PLAYER_Y_MOVEMENT: f32 = 540.0;
 
 pub fn map_to_sprite(orient: Orientation) -> Option<i8> {
     match orient {

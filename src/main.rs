@@ -49,7 +49,9 @@ fn main() -> amethyst::Result<()> {
         .with_bundle(FPSCounterBundle::default())?
         .with(systems::PlayerSystem, "player_system", &["input_system"])
         .with(systems::CreateBombSystem, "create_bomb_system", &["input_system"])
-        .with(systems::FPSSystem::default(), "fps_system", &[]);
+        .with(systems::FPSSystem::default(), "fps_system", &[])
+        .with(systems::BombTimerSystem, "bomb_timer_system", &[])
+        .with(systems::BombExplotionSystem, "bomb_explotion_system", &[]);
 
     let mut game = Application::build(resources, Bomberman::default())?
         .with_frame_limit(FrameRateLimitStrategy::Unlimited, 9999)
