@@ -112,9 +112,11 @@ impl SimpleState for Bomberman {
         BombResource::initialize(world);
 
         let fps_path = format!("{}/resources/fps.ron", application_root_dir());
+        let count_down_path = format!("{}/resources/count_down.ron", application_root_dir());
 
         world.exec(|mut creator: UiCreator<'_>| {
             creator.create(fps_path, &mut self.progress);
+            creator.create(count_down_path, &mut self.progress);
         });
 
         initialise_players(world, sprite_sheet_handle);

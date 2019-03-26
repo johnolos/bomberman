@@ -19,9 +19,23 @@ struct NewBomb {
   position: (f32, f32)
 }
 
-pub struct CreateBombSystem;
+#[derive(PartialEq)]
+enum KeyAction {
+    KeyPressed,
+    KeyReleased
+}
+
+pub struct CreateBombSystem{
+    key_actions: Vec<KeyAction>
+}
 
 impl CreateBombSystem {
+  pub fn default() -> Self {
+    CreateBombSystem {
+      key_actions: vec![KeyAction::KeyReleased, KeyAction::KeyReleased]
+    }
+  }
+
   fn create_bomb<'s>(
     &mut self,
     entities: &Entities<'s>,
@@ -82,6 +96,7 @@ impl<'s> System<'s> for CreateBombSystem {
 
       let mut new_bombs: Vec<NewBomb> = Vec::new();
 
+      // FIXME: Optimalization - Horrible logic in terms of handling one bomb per press
       for (player, transform) in (&mut players, &transforms).join() {
         let create_bomb_key_pressed = match player.player_number {
           PlayerNumber::PlayerOne => input.action_is_down("left_player_bomb"),
@@ -89,13 +104,31 @@ impl<'s> System<'s> for CreateBombSystem {
         };
 
         if let Some(true) = create_bomb_key_pressed {
-          if player.active_bombs < player.allowed_bombs {
-            new_bombs.push(NewBomb {
-              owner: player.player_number.clone(),
-              bomb_time_multiplier: player.bomb_time_multiplier,
-              blast_radius_multiplier: player.blast_radius_multiplier,
-              position: (transform.translation().x, transform.translation().y)
-            })
+
+          let key_action = match player.player_number {
+            PlayerNumber::PlayerOne => &self.key_actions[0],
+            PlayerNumber::PlayerTwo => &self.key_actions[1]
+          };
+
+          if *key_action == KeyAction::KeyReleased {
+            if player.active_bombs < player.allowed_bombs {
+              new_bombs.push(NewBomb {
+                owner: player.player_number.clone(),
+                bomb_time_multiplier: player.bomb_time_multiplier,
+                blast_radius_multiplier: player.blast_radius_multiplier,
+                position: (transform.translation().x, transform.translation().y)
+              });
+
+              match player.player_number {
+                PlayerNumber::PlayerOne => self.key_actions[0] = KeyAction::KeyPressed,
+                PlayerNumber::PlayerTwo => self.key_actions[1] = KeyAction::KeyPressed
+              }
+            }
+          }
+        } else {
+          match player.player_number {
+            PlayerNumber::PlayerOne => self.key_actions[0] = KeyAction::KeyReleased,
+            PlayerNumber::PlayerTwo => self.key_actions[1] = KeyAction::KeyReleased
           }
         };
       }

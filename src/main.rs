@@ -24,9 +24,10 @@ use bomberman::Bomberman;
 fn main() -> amethyst::Result<()> {
     amethyst::start_logger(Default::default());
 
-    let display_config_path = format!("{}/resources/display_config.ron", application_root_dir());
-    let display_config = DisplayConfig::load(&display_config_path);
-    let resources = format!("{}/texture", application_root_dir());
+    let resources = format!("{}/resources", application_root_dir());
+
+    let display_config_path = format!("{}/display_config.ron", resources);
+        let display_config = DisplayConfig::load(&display_config_path);
 
     let pipe = Pipeline::build().with_stage(
         Stage::with_backbuffer()
@@ -36,7 +37,7 @@ fn main() -> amethyst::Result<()> {
             .with_pass(DrawUi::new()),
     );
 
-    let bindings_file = format!("{}/resources/bindings_config.ron", application_root_dir());
+    let bindings_file = format!("{}/bindings_config.ron", resources);
 
     let input_bundle =
         InputBundle::<String, String>::new().with_bindings_from_file(bindings_file)?;
@@ -48,8 +49,9 @@ fn main() -> amethyst::Result<()> {
         .with_bundle(UiBundle::<String, String>::new())?
         .with_bundle(FPSCounterBundle::default())?
         .with(systems::PlayerSystem, "player_system", &["input_system"])
-        .with(systems::CreateBombSystem, "create_bomb_system", &["input_system"])
+        .with(systems::CreateBombSystem::default(), "create_bomb_system", &["input_system"])
         .with(systems::FPSSystem::default(), "fps_system", &[])
+        .with(systems::CountDownSystem::default(), "count_down_system", &[])
         .with(systems::BombTimerSystem, "bomb_timer_system", &[])
         .with(systems::BombExplotionSystem, "bomb_explotion_system", &[]);
 
