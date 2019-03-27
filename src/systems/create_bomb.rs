@@ -2,7 +2,7 @@ use amethyst::{
     core::transform::Transform,
     ecs::prelude::{Entities, Join, Read, ReadExpect, System, WriteStorage},
     input::InputHandler,
-    renderer::SpriteRender,
+    renderer::{SpriteRender, Transparent},
 };
 
 use crate::{

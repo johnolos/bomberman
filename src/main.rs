@@ -4,7 +4,7 @@ use amethyst::{
     core::{frame_limiter::FrameRateLimitStrategy, transform::TransformBundle},
     input::InputBundle,
     prelude::*,
-    renderer::{DisplayConfig, DrawFlat2D, DrawShaded, Pipeline, PosNormTex, RenderBundle, Stage},
+    renderer::{DisplayConfig, DrawFlat2D, DrawShaded, Pipeline, PosNormTex, RenderBundle, Stage, ALPHA, ColorMask},
     ui::{DrawUi, UiBundle},
     utils::{application_root_dir, fps_counter::FPSCounterBundle},
 };
@@ -29,7 +29,7 @@ fn main() -> amethyst::Result<()> {
     let pipe = Pipeline::build().with_stage(
         Stage::with_backbuffer()
             .clear_target([0.0, 0.0, 0.0, 1.0], 1.0)
-            .with_pass(DrawFlat2D::new())
+            .with_pass(DrawFlat2D::new().with_transparency(ColorMask::all(), ALPHA, None))
             .with_pass(DrawShaded::<PosNormTex>::new())
             .with_pass(DrawUi::new()),
     );

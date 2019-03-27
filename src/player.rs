@@ -1,7 +1,7 @@
 use crate::core::{Orientation, Orientation::*, PlayerNumber};
 use amethyst::ecs::prelude::{Component, DenseVecStorage};
 
-pub const PLAYER_HEIGHT: f32 = 64.0;
+pub const PLAYER_HEIGHT: f32 = 192.0;
 pub const PLAYER_WIDTH: f32 = 64.0;
 
 pub const PLAYER_X_MOVEMENT: f32 = 960.0;
