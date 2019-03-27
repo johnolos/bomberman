@@ -1,15 +1,12 @@
 extern crate amethyst;
 
 use amethyst::{
+    core::{frame_limiter::FrameRateLimitStrategy, transform::TransformBundle},
     input::InputBundle,
     prelude::*,
-    core::{frame_limiter::FrameRateLimitStrategy, transform::TransformBundle},
-    renderer::{DisplayConfig, DrawFlat2D, Pipeline, RenderBundle, Stage, DrawShaded, PosNormTex},
-    ui::{UiBundle, DrawUi},
-    utils::{
-        application_root_dir,
-        fps_counter::{FPSCounterBundle},
-    },
+    renderer::{DisplayConfig, DrawFlat2D, DrawShaded, Pipeline, PosNormTex, RenderBundle, Stage},
+    ui::{DrawUi, UiBundle},
+    utils::{application_root_dir, fps_counter::FPSCounterBundle},
 };
 
 mod bomb;
@@ -27,7 +24,7 @@ fn main() -> amethyst::Result<()> {
     let resources = format!("{}/resources", application_root_dir());
 
     let display_config_path = format!("{}/display_config.ron", resources);
-        let display_config = DisplayConfig::load(&display_config_path);
+    let display_config = DisplayConfig::load(&display_config_path);
 
     let pipe = Pipeline::build().with_stage(
         Stage::with_backbuffer()
@@ -49,9 +46,17 @@ fn main() -> amethyst::Result<()> {
         .with_bundle(UiBundle::<String, String>::new())?
         .with_bundle(FPSCounterBundle::default())?
         .with(systems::PlayerSystem, "player_system", &["input_system"])
-        .with(systems::CreateBombSystem::default(), "create_bomb_system", &["input_system"])
+        .with(
+            systems::CreateBombSystem::default(),
+            "create_bomb_system",
+            &["input_system"],
+        )
         .with(systems::FPSSystem::default(), "fps_system", &[])
-        .with(systems::CountDownSystem::default(), "count_down_system", &[])
+        .with(
+            systems::CountDownSystem::default(),
+            "count_down_system",
+            &[],
+        )
         .with(systems::BombTimerSystem, "bomb_timer_system", &[])
         .with(systems::BombExplotionSystem, "bomb_explotion_system", &[]);
 

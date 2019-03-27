@@ -1,4 +1,3 @@
-
 use amethyst::{
     core::Time,
     ecs::prelude::{Entity, Read, System, WriteStorage},
@@ -8,7 +7,7 @@ use amethyst::{
 
 #[derive(Default)]
 pub struct FPSSystem {
-  fps_display: Option<Entity>,
+    fps_display: Option<Entity>,
 }
 
 impl<'a> System<'a> for FPSSystem {

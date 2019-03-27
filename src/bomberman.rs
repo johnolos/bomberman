@@ -1,21 +1,19 @@
 use amethyst::{
     assets::{AssetStorage, Loader, ProgressCounter},
-    core::{transform::Transform},
+    core::transform::Transform,
     prelude::*,
     renderer::{
-        Camera, PngFormat, Projection, SpriteRender, SpriteSheet, SpriteSheetFormat, SpriteSheetHandle,
-        Texture, TextureMetadata
+        Camera, PngFormat, Projection, SpriteRender, SpriteSheet, SpriteSheetFormat,
+        SpriteSheetHandle, Texture, TextureMetadata,
     },
-    ui::{UiCreator},
-    utils::{
-        application_root_dir,
-    }
+    ui::UiCreator,
+    utils::application_root_dir,
 };
 
 use crate::{
-  core::{Orientation, PlayerNumber},
-  bomb_resource::BombResource,
-  player::{Player, PLAYER_HEIGHT, PLAYER_WIDTH}
+    bomb_resource::BombResource,
+    core::{Orientation, PlayerNumber},
+    player::{Player, PLAYER_HEIGHT, PLAYER_WIDTH},
 };
 
 pub const ARENA_HEIGHT: f32 = 1080.0;
@@ -23,7 +21,7 @@ pub const ARENA_WIDTH: f32 = 1920.0;
 
 #[derive(Default)]
 pub struct Bomberman {
-    progress: ProgressCounter
+    progress: ProgressCounter,
 }
 
 fn initialise_camera(world: &mut World) {
@@ -73,10 +71,7 @@ fn load_sprite_sheet(world: &mut World) -> SpriteSheetHandle {
     let texture_handle = {
         let loader = world.read_resource::<Loader>();
         let texture_storage = world.read_resource::<AssetStorage<Texture>>();
-        let texture_sprite_sheet_path = format!(
-            "{}/texture/bomberman.png",
-            application_root_dir()
-        );
+        let texture_sprite_sheet_path = format!("{}/texture/bomberman.png", application_root_dir());
 
         loader.load(
             texture_sprite_sheet_path,

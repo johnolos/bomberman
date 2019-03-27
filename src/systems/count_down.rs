@@ -1,21 +1,16 @@
-
 use amethyst::{
     core::Time,
-    ecs::prelude::{Entity, Write, System, WriteStorage},
+    ecs::prelude::{Entity, System, Write, WriteStorage},
     ui::{UiFinder, UiText},
 };
 
 #[derive(Default)]
 pub struct CountDownSystem {
-  count_down_display: Option<Entity>
+    count_down_display: Option<Entity>,
 }
 
 impl<'a> System<'a> for CountDownSystem {
-    type SystemData = (
-        Write<'a, Time>,
-        WriteStorage<'a, UiText>,
-        UiFinder<'a>,
-    );
+    type SystemData = (Write<'a, Time>, WriteStorage<'a, UiText>, UiFinder<'a>);
 
     fn run(&mut self, data: Self::SystemData) {
         let (mut time, mut ui_text, finder) = data;

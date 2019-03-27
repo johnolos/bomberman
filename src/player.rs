@@ -25,7 +25,7 @@ pub struct Player {
     pub allowed_bombs: i8,
     pub active_bombs: i8,
     pub bomb_time_multiplier: f32,
-    pub blast_radius_multiplier: i8
+    pub blast_radius_multiplier: i8,
 }
 
 impl Player {
@@ -39,7 +39,7 @@ impl Player {
             allowed_bombs: 1,
             active_bombs: 0,
             bomb_time_multiplier: 1.0f32,
-            blast_radius_multiplier: 1
+            blast_radius_multiplier: 1,
         }
     }
 }

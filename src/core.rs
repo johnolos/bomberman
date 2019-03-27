@@ -9,5 +9,5 @@ pub enum Orientation {
 #[derive(PartialEq, Eq, Debug, Clone)]
 pub enum PlayerNumber {
     PlayerOne,
-    PlayerTwo
+    PlayerTwo,
 }
