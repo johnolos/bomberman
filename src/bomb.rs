@@ -1,7 +1,7 @@
 use amethyst::ecs::prelude::{Component, DenseVecStorage};
 
-pub const BOMB_HEIGHT: f32 = 6.0;
-pub const BOMB_WIDTH: f32 = 6.0;
+pub const BOMB_HEIGHT: f32 = 128.0;
+pub const BOMB_WIDTH: f32 = 128.0;
 
 pub const BOMB_X_MOVEMENT: f32 = 1.2;
 pub const BOMB_Y_MOVEMENT: f32 = 0.675;

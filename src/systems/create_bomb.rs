@@ -6,10 +6,10 @@ use amethyst::{
 };
 
 use crate::{
-    bomb::{Bomb, INITIAL_BLAST_RADIUS, INITIAL_BOMB_TIME},
+    bomb::{Bomb, INITIAL_BLAST_RADIUS, INITIAL_BOMB_TIME, BOMB_HEIGHT, BOMB_WIDTH},
     bomb_resource::BombResource,
     core::PlayerNumber,
-    player::Player,
+    player::{Player, PLAYER_HEIGHT, PLAYER_WIDTH},
 };
 
 struct NewBomb {
@@ -48,7 +48,10 @@ impl CreateBombSystem {
         let mut transform = Transform::default();
         let (pos_x, pos_y) = bomb.position;
 
-        transform.translate_xyz(pos_x, pos_y, 0.0);
+        let x = (pos_x / 128.0).round();
+        let y = (pos_y / 128.0).round();
+
+        transform.translate_xyz(x * 128.0 + (BOMB_WIDTH * 0.5), y * 128.0 + (BOMB_HEIGHT * 0.5), 0.0);
 
         let sprite_render = SpriteRender {
             sprite_sheet: bomb_resource.sprite_sheet.clone(),
@@ -111,11 +114,12 @@ impl<'s> System<'s> for CreateBombSystem {
 
                 if *key_action == KeyAction::KeyReleased {
                     if player.active_bombs < player.allowed_bombs {
+                        let (x, y) = (transform.translation().x, transform.translation().y);
                         new_bombs.push(NewBomb {
                             owner: player.player_number.clone(),
                             bomb_time_multiplier: player.bomb_time_multiplier,
                             blast_radius_multiplier: player.blast_radius_multiplier,
-                            position: (transform.translation().x, transform.translation().y),
+                            position: (x - (PLAYER_WIDTH), y - (PLAYER_HEIGHT*0.5)),
                         });
 
                         match player.player_number {
