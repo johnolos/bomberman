@@ -12,6 +12,7 @@ use amethyst::{
 
 use crate::{
     bomb_resource::BombResource,
+    wall_resource::WallResource,
     core::{Orientation, PlayerNumber},
     player::{Player, PLAYER_HEIGHT, PLAYER_WIDTH},
 };
@@ -105,6 +106,7 @@ impl SimpleState for Bomberman {
 
         let sprite_sheet_handle = load_sprite_sheet(world);
         BombResource::initialize(world);
+        WallResource::initialize(world);
 
         let fps_path = format!("{}/resources/fps.ron", application_root_dir());
         let count_down_path = format!("{}/resources/count_down.ron", application_root_dir());

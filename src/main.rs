@@ -11,6 +11,8 @@ use amethyst::{
 
 mod bomb;
 mod bomb_resource;
+mod wall;
+mod wall_resource;
 mod bomberman;
 mod core;
 mod player;
@@ -45,6 +47,7 @@ fn main() -> amethyst::Result<()> {
         .with_bundle(input_bundle)?
         .with_bundle(UiBundle::<String, String>::new())?
         .with_bundle(FPSCounterBundle::default())?
+        .with(systems::WallSystem::default(), "wall_system", &[])
         .with(systems::PlayerSystem, "player_system", &["input_system"])
         .with(
             systems::CreateBombSystem::default(),
